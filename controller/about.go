@@ -1,8 +1,9 @@
 package controller
 
 import (
-	"github.com/gin-gonic/gin"
 	"goflylivechat/models"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetAbout(c *gin.Context) {

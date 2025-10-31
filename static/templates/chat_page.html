@@ -1,10 +1,10 @@
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
     <meta name="keywords" content="Golang Open Source LiveChat Software"/>
     <meta name="description" content="Golang Open Source LiveChat Software"/>
-    <title>Live Chat Support</title>
+    <title>在线客服支持</title>
     <link rel="stylesheet" href="/static/cdn/element-ui/2.15.1/theme-chalk/index.min.css">
     <script src="/static/cdn/vue/2.6.11/vue.min.js"></script>
     <script src="/static/cdn/element-ui/2.15.1/index.js"></script>
@@ -25,14 +25,14 @@
                 <el-avatar class="chatEntTitleLogo" :size="35" :src="kefuInfo.avatar"></el-avatar>
             </el-badge>
             <div>
-                <div>Live Chat Support</div>
+                <div>在线客服支持</div>
             </div>
         </div>
         <div class="chatEntBox">
             <div class="chatContext chatVisitorPage">
                 <div class="chatBox">
                     <div class="chatNotice" v-on:click="getHistoryMessage" v-show="showLoadMore">
-                        <a href="javascript:;" class="chatNoticeContent" style="color: #07a9fe;">Load more messages</a>
+                        <a href="javascript:;" class="chatNoticeContent" style="color: #07a9fe;">加载更多消息</a>
                     </div>
                     <el-row :gutter="2" v-for="v in msgList" v-bind:class="{'chatBoxMe': v.is_kefu==false}">
                         <div class="chatTime" v-bind:class="{'chatTimeHide': v.show_time==false}"><span><{v.time}></span></div>

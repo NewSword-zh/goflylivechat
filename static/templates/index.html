@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GOFLY LIVE CHAT</title>
+    <title>GOFLY 在线客服</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,39 +60,39 @@
     </style>
 </head>
 <body>
-<h1>GOFLY LIVE CHAT</h1>
-<p>Open-source live chat support system, built for modern customer service</p>
+<h1>GOFLY 在线客服</h1>
+<p>开源在线客服支持系统，为现代客户服务而构建</p>
 
-<p><strong>Real-time messaging</strong> - Instant connection between customers and support teams</p>
-<p><strong>Lightning-fast performance</strong> - Powered by Golang for high-concurrency handling</p>
+<p><strong>实时消息传递</strong> - 客户与支持团队之间的即时连接</p>
+<p><strong>极速性能</strong> - 由 Golang 驱动，支持高并发处理</p>
 <p>
-    Username:​​ agent<br/>Password:​​ agent
+    用户名:​​ agent<br/>密码:​​ agent
 </p>
 <div class="demo-container">
-    <a href="/login" class="demo-btn">TRY LIVE DEMO NOW</a>
+    <a href="/login" class="demo-btn">立即体验在线演示</a>
 </div>
-<h2>Technical Architecture</h2>
-<p>A modern stack built for performance and scalability</p>
+<h2>技术架构</h2>
+<p>为性能和可扩展性构建的现代化技术栈</p>
 
 <ul>
-    <li>Backend: <code>gin</code>, <code>jwt-go</code>, <code>websocket</code>, <code>go.uuid</code>, <code>gorm</code>, <code>cobra</code></li>
-    <li>Frontend: <code>VueJS</code>, <code>ElementUI</code></li>
-    <li>Database: <code>MySQL</code></li>
+    <li>后端: <code>gin</code>, <code>jwt-go</code>, <code>websocket</code>, <code>go.uuid</code>, <code>gorm</code>, <code>cobra</code></li>
+    <li>前端: <code>VueJS</code>, <code>ElementUI</code></li>
+    <li>数据库: <code>MySQL</code></li>
 </ul>
 
 <hr>
 
-<h2>Installation & Usage</h2>
+<h2>安装与使用</h2>
 
-<h3>1. Set Up MySQL Database</h3>
+<h3>1. 设置 MySQL 数据库</h3>
 <ul>
-    <li>Install and run MySQL (version ≥ 5.5).</li>
-    <li>Create a database:</li>
+    <li>安装并运行 MySQL (版本 ≥ 5.5)。</li>
+    <li>创建数据库：</li>
 </ul>
 <pre><code class="language-sql">CREATE DATABASE goflychat CHARSET utf8mb4;</code></pre>
 
-<h4>Configure Database Connection</h4>
-<p>Edit mysql.json in the config directory:</p>
+<h4>配置数据库连接</h4>
+<p>编辑 config 目录中的 mysql.json 文件：</p>
 <pre><code class="language-php">{
     "Server":"127.0.0.1",
     "Port":"3306",
@@ -101,8 +101,8 @@
     "Password":"goflychat"
 }</code></pre>
 
-<h4>Install and Configure Golang</h4>
-<p>Run the following commands:</p>
+<h4>安装和配置 Golang</h4>
+<p>运行以下命令：</p>
 <pre><code class="language-php">wget https://studygolang.com/dl/golang/go1.20.2.linux-amd64.tar.gz
 tar -C /usr/local -xvf go1.20.2.linux-amd64.tar.gz
 mv go1.20.2.linux-amd64.tar.gz /tmp
@@ -113,36 +113,36 @@ go version
 go env -w GO111MODULE=on
 go env -w GOPROXY=https://goproxy.cn,direct</code></pre>
 
-<h4>Download the Source Code</h4>
-<p>Clone the repository in any directory:</p>
+<h4>下载源代码</h4>
+<p>在任意目录克隆仓库：</p>
 <pre><code class="language-php">git clone https://github.com/taoshihan1991/goflylivechat.git
 cd goflylivechat</code></pre>
 
-<h4>Initialize the Database</h4>
+<h4>初始化数据库</h4>
 <pre><code class="language-php">go run main.go install</code></pre>
 
-<h4>Run the Application</h4>
+<h4>运行应用程序</h4>
 <pre><code class="language-php">go run main.go server</code></pre>
 
-<h4>Build executable</h4>
+<h4>构建可执行文件</h4>
 <pre><code class="language-php">go build -o gochat</code></pre>
 
-<h4>Run binary:</h4>
-<pre><code class="language-php">Linux: ./gochat server (optional flags: -p 8082 -d)
+<h4>运行二进制文件：</h4>
+<pre><code class="language-php">Linux: ./gochat server (可选参数: -p 8082 -d)
 
-Windows: gochat.exe server (optional flags: -p 8082 -d)</code></pre>
+Windows: gochat.exe server (可选参数: -p 8082 -d)</code></pre>
 
-<h4>Terminate the Process</h4>
+<h4>终止进程</h4>
 <pre><code class="language-php">killall gochat</code></pre>
 
-<p>Once running, the service listens on port 8081. Access via http://[your-ip]:8081.</p>
-<p>For domain access, configure a reverse proxy to port 8081 to hide the port number.</p>
+<p>服务运行后，监听 8081 端口。通过 http://[你的-ip]:8081 访问。</p>
+<p>如果需要域名访问，请配置反向代理到 8081 端口以隐藏端口号。</p>
 
-<h3>Customer Service Integration</h3>
-<h4>Chat Link</h4>
+<h3>客服集成</h3>
+<h4>聊天链接</h4>
 <p>http://127.0.0.1:8081/livechat?user_id=agent</p>
 
-<h4>Popup Integration</h4>
+<h4>弹窗集成</h4>
 <pre><code class="language-javascript">(function(a, b, c, d) {
     let h = b.getElementsByTagName('head')[0];let s = b.createElement('script');
     s.type = 'text/javascript';s.src = c+"/static/js/kefu-front.js";s.onload = s.onreadystatechange = function () {
@@ -156,13 +156,13 @@ Windows: gochat.exe server (optional flags: -p 8082 -d)</code></pre>
 });</code></pre>
 
 <div class="notice">
-    <h3>Important Notice</h3>
-    <p>The use of this project for illegal or non-compliant purposes, including but not limited to viruses, trojans, pornography, gambling, fraud, prohibited items, counterfeit products, false information, cryptocurrencies, and financial violations, is strictly prohibited.</p>
-    <p>This project is intended solely for personal learning and testing purposes. Any commercial use or illegal activities are explicitly forbidden!!!</p>
+    <h3>重要声明</h3>
+    <p>严禁将本项目用于非法或违规用途，包括但不限于病毒、木马、色情、赌博、诈骗、违禁品、假冒产品、虚假信息、加密货币和金融违规等行为。</p>
+    <p>本项目仅供个人学习和测试使用。严禁商业用途或非法活动！！！</p>
 </div>
 
-<h3>Copyright Notice</h3>
-<p>This project provides full-featured code but is intended only for personal demonstration and testing. Commercial use is strictly prohibited.</p>
-<p>By using this software, you agree to comply with all applicable local laws and regulations. You are solely responsible for any legal consequences arising from misuse.</p>
+<h3>版权声明</h3>
+<p>本项目提供完整功能的代码，但仅供个人演示和测试使用。严格禁止商业用途。</p>
+<p>使用本软件即表示您同意遵守所有适用的当地法律法规。您对因误用而产生的任何法律后果承担全部责任。</p>
 </body>
 </html>

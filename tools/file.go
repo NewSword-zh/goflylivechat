@@ -2,7 +2,7 @@ package tools
 
 import "os"
 
-//判断文件文件夹是否存在(字节0也算不存在)
+// IsFileExist 判断文件文件夹是否存在(字节0也算不存在)
 func IsFileExist(path string) (bool, error) {
 	fileInfo, err := os.Stat(path)
 
@@ -19,7 +19,7 @@ func IsFileExist(path string) (bool, error) {
 	return false, err
 }
 
-//判断文件文件夹不存在
+// IsFileNotExist 判断文件文件夹不存在
 func IsFileNotExist(path string) (bool, error) {
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {

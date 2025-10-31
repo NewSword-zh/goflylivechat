@@ -1,10 +1,11 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"goflylivechat/controller"
 	"goflylivechat/middleware"
 	"goflylivechat/ws"
+
+	"github.com/gin-gonic/gin"
 )
 
 func InitApiRouter(engine *gin.Engine) {

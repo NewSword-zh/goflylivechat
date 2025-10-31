@@ -2,14 +2,16 @@ package models
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"goflylivechat/common"
 	"log"
 	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 var DB *gorm.DB
 
+// 数据库基础字段
 type Model struct {
 	ID        uint       `gorm:"primary_key" json:"id"`
 	CreatedAt time.Time  `json:"created_at"`
@@ -30,11 +32,11 @@ func Connect() error {
 		panic("数据库连接失败!")
 		return err
 	}
-	DB.SingularTable(true)
-	DB.LogMode(true)
-	DB.DB().SetMaxIdleConns(10)
-	DB.DB().SetMaxOpenConns(100)
-	DB.DB().SetConnMaxLifetime(59 * time.Second)
+	DB.SingularTable(true)                       // 禁用表名复数化
+	DB.LogMode(true)                             // 在控制台打印执行的 SQL 语句、执行时间、影响行数等日志
+	DB.DB().SetMaxIdleConns(10)                  // 最大空闲连接数
+	DB.DB().SetMaxOpenConns(100)                 // 最大打开连接数
+	DB.DB().SetConnMaxLifetime(59 * time.Second) // 连接最大存活时间 MySQL 的 wait_timeout 默认为 60 秒，这里设为 59 秒可提前关闭，避免连接失效
 	return nil
 }
 func Execute(sql string) error {

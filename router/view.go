@@ -1,8 +1,9 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func InitViewRouter(engine *gin.Engine) {
@@ -15,22 +16,22 @@ func InitViewRouter(engine *gin.Engine) {
 	engine.GET("/setting", PageSetting)
 }
 
-// Login page
+// PageLogin Login page
 func PageLogin(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.html", nil)
 }
 
-// Dashboard
+// PagePannel Dashboard
 func PagePannel(c *gin.Context) {
 	c.HTML(http.StatusOK, "pannel.html", nil)
 }
 
-// Admin console
+// PageMain Admin console
 func PageMain(c *gin.Context) {
 	c.HTML(http.StatusOK, "main.html", nil)
 }
 
-// Customer chat interface
+// PageChat Customer chat interface
 func PageChat(c *gin.Context) {
 	referralSource := c.Query("refer") // More clear variable name
 
@@ -46,12 +47,12 @@ func PageChat(c *gin.Context) {
 	})
 }
 
-// Support agent console
+// PageChatMain Support agent console
 func PageChatMain(c *gin.Context) {
 	c.HTML(http.StatusOK, "chat_main.html", nil)
 }
 
-// Settings
+// PageSetting Settings
 func PageSetting(c *gin.Context) {
 	c.HTML(http.StatusOK, "setting.html", nil)
 }
