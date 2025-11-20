@@ -11,7 +11,7 @@ import (
 
 var DB *gorm.DB
 
-// 数据库基础字段
+// Model 数据库基础字段
 type Model struct {
 	ID        uint       `gorm:"primary_key" json:"id"`
 	CreatedAt time.Time  `json:"created_at"`

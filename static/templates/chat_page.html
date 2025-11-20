@@ -52,14 +52,14 @@
             </div>
             <div class="chatBoxSend">
                 <div class="visitorIconBox">
-                    <el-tooltip content="Send emoji" placement="top">
+                    <el-tooltip content="发送表情" placement="top">
                         <div class="iconBtn iconfont icon-xiaolian" style="margin-left:10px;font-size: 24px;cursor: pointer;" @click.stop="showFaceIcon==true?showFaceIcon=false:showFaceIcon=true"></div>
                     </el-tooltip>
 
-                    <el-tooltip content="Upload image" placement="top">
+                    <el-tooltip content="上传图片" placement="top">
                         <div class="iconBtn el-icon-picture" id="uploadImg" v-on:click="uploadImg('/uploadimg')" style="font-size: 24px;"></div>
                     </el-tooltip>
-                    <el-tooltip content="Upload file" placement="top">
+                    <el-tooltip content="上传文件" placement="top">
                         <div class="iconBtn el-icon-upload" id="uploadFile" v-on:click="uploadFile('/uploadfile')" style="font-size: 26px;"></div>
                     </el-tooltip>
 
@@ -75,11 +75,11 @@
                 </div>
                 <el-input show-word-limit maxlength="100" :rows="2" type="textarea" resize="none" class="visitorEditorArea" @focus="scrollBottom;showIconBtns=false" @blur="scrollBottom;showIconBtns=false" v-model="messageContent" v-on:keyup.enter.native="chatToUser">
                 </el-input>
-                <el-button type="primary" size="mini" class="visitorEditorBtn" :disabled="sendDisabled||messageContent==''" v-on:click="chatToUser();showIconBtns=false">Send</el-button>
+                <el-button type="primary" size="mini" class="visitorEditorBtn" :disabled="sendDisabled||messageContent==''" v-on:click="chatToUser();showIconBtns=false">发送</el-button>
             </div>
         </div>
         <div class="chatArticle">
-            <h3 class="hotQuestionTitle">Announcements</h3>
+            <h3 class="hotQuestionTitle">公告</h3>
             <div class="allNotice" v-html><{kefuInfo.allNotice}></div>
         </div>
 
@@ -359,7 +359,7 @@
                     var code=res.code;
                     if(code!=200) return;
                     _this.kefuInfo=res.result;
-                    _this.showTitle(_this.kefuInfo.nickname+" at your service.");
+                    _this.showTitle(_this.kefuInfo.nickname+" 为您服务.");
                     if(!_this.kefuInfo.welcome) return;
                     var msg={
                         content:replaceContent(_this.kefuInfo.welcome),

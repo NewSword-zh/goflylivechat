@@ -8,7 +8,7 @@ const CHAT_WIDGET = {
     USER_AVATAR: "",
     isChatOpen: false,
     originalPageTitle: document.title,
-    chatWindowTitle: "Chat with us",
+    chatWindowTitle: "欢迎使用在线客服咨询!",
     isOffline: false,
     iframeId: "chat-widget-iframe",
     containerId: "chat-widget-container"
@@ -152,7 +152,7 @@ CHAT_WIDGET.openChatWindow = function() {
         container.id = this.containerId;
         container.innerHTML = `
             <div id="chat-widget-header">
-                <span>chat with us</span>
+                <span>欢迎在线咨询</span>
                 <span class="close-button">×</span>
             </div>
             <iframe id="${this.iframeId}" src="${this.buildChatUrl()}"></iframe>
