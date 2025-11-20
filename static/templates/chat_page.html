@@ -1,20 +1,20 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <meta name="keywords" content="Golang Open Source LiveChat Software"/>
     <meta name="description" content="Golang Open Source LiveChat Software"/>
     <title>在线客服支持</title>
-    <link rel="stylesheet" href="/static/cdn/element-ui/2.15.1/theme-chalk/index.min.css">
-    <script src="/static/cdn/vue/2.6.11/vue.min.js"></script>
-    <script src="/static/cdn/element-ui/2.15.1/index.js"></script>
-    <script src="/static/cdn/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{.BasePath}}/static/cdn/element-ui/2.15.1/theme-chalk/index.min.css">
+    <script src="{{.BasePath}}/static/cdn/vue/2.6.11/vue.min.js"></script>
+    <script src="{{.BasePath}}/static/cdn/element-ui/2.15.1/index.js"></script>
+    <script src="{{.BasePath}}/static/cdn/jquery/3.6.0/jquery.min.js"></script>
 
-    <script src="/static/js/functions.js?v=fgffdwersdccvcbv"></script>
-    <script src="/static/js/reconnecting-websocket.min.js"></script>
-    <link rel="stylesheet" href="/static/css/common.css?v=sdsderfrgfgdfdf" />
-    <link rel="stylesheet" href="/static/css/icono.min.css" />
-    <link rel="stylesheet" href="/static/css/icon/iconfont.css?v=fgjlgfda"/>
+    <script src="{{.BasePath}}/static/js/functions.js?v=fgffdwersdccvcbv"></script>
+    <script src="{{.BasePath}}/static/js/reconnecting-websocket.min.js"></script>
+    <link rel="stylesheet" href="{{.BasePath}}/static/css/common.css?v=sdsderfrgfgdfdf" />
+    <link rel="stylesheet" href="{{.BasePath}}/static/css/icono.min.css" />
+    <link rel="stylesheet" href="{{.BasePath}}/static/css/icon/iconfont.css?v=fgjlgfda"/>
 </head>
 <body class="visitorBody">
 <div id="app" class="chatCenter">
@@ -57,10 +57,10 @@
                     </el-tooltip>
 
                     <el-tooltip content="上传图片" placement="top">
-                        <div class="iconBtn el-icon-picture" id="uploadImg" v-on:click="uploadImg('/uploadimg')" style="font-size: 24px;"></div>
+                        <div class="iconBtn el-icon-picture" id="uploadImg" v-on:click="uploadImg(window.APP_BASE_PATH+'/uploadimg')" style="font-size: 24px;"></div>
                     </el-tooltip>
                     <el-tooltip content="上传文件" placement="top">
-                        <div class="iconBtn el-icon-upload" id="uploadFile" v-on:click="uploadFile('/uploadfile')" style="font-size: 26px;"></div>
+                        <div class="iconBtn el-icon-upload" id="uploadFile" v-on:click="uploadFile(window.APP_BASE_PATH+'/uploadfile')" style="font-size: 26px;"></div>
                     </el-tooltip>
 
                     <div style="display: none" title="Emoji" class="icono-smile visitorIconBtns visitorFaceBtn"></div>
@@ -91,6 +91,14 @@
 <script>
     var KEFU_ID=getQuery("user_id");
     var REFER='{{.Refer}}';
+
+    // 使用后端传递的基础路径
+    window.APP_BASE_PATH = "{{.BasePath}}";
+
+    // 更新现有的路径函数以保持兼容性
+    window.getDynamicBasePath = function() {
+        return "{{.BasePath}}";
+    };
 </script>
 <script>
     new Vue({
@@ -250,7 +258,7 @@
                 mes.from_id = this.visitor.visitor_id;
                 mes.to_id = this.visitor.to_id;
                 mes.content = this.messageContent;
-                $.post("/2/message",mes,function(res){
+                $.post(window.APP_BASE_PATH + "/2/message",mes,function(res){
                     _this.sendDisabled=false;
                     if(res.code!=200){
                         _this.msgList.pop();
@@ -279,7 +287,7 @@
                 }
                 let _this=this;
                 var extra=getQuery("extra");
-                $.post("/visitor_login",{visitor_id:visitor_id,refer:REFER,to_id:to_id,extra:extra},function(res){
+                $.post(window.APP_BASE_PATH + "/visitor_login",{visitor_id:visitor_id,refer:REFER,to_id:to_id,extra:extra},function(res){
                     if(res.code!=200){
                         _this.$message({
                             message: res.msg,
@@ -301,7 +309,7 @@
                     visitor_id: this.visitor.visitor_id,
                 }
                 let _this=this;
-                $.get("/2/messagesPages",params,function(res){
+                $.get(window.APP_BASE_PATH + "/2/messagesPages",params,function(res){
                     let msgList=res.result.list;
                     if(msgList.length>=_this.messages.pagesize){
                         _this.showLoadMore=true;
@@ -355,7 +363,7 @@
             },
             getNotice : function (){
                 let _this=this;
-                $.get("/notice?kefu_id="+KEFU_ID,function(res) {
+                $.get(window.APP_BASE_PATH + "/notice?kefu_id="+KEFU_ID,function(res) {
                     var code=res.code;
                     if(code!=200) return;
                     _this.kefuInfo=res.result;
@@ -432,8 +440,9 @@
                     var formData = new FormData();
                     var file = $("#uploadImgFile")[0].files[0];
                     formData.append("imgfile",file);
+                    var uploadUrl = url ? window.APP_BASE_PATH + url : window.APP_BASE_PATH + "/uploadimg";
                     filter(file) && $.ajax({
-                        url: url || '',
+                        url: uploadUrl,
                         type: "post",
                         data: formData,
                         contentType: false,
@@ -466,8 +475,9 @@
                     var file = $("#uploadRealFile")[0].files[0];
                     formData.append("realfile",file);
                     console.log(formData);
+                    var uploadUrl = url ? window.APP_BASE_PATH + url : window.APP_BASE_PATH + "/uploadfile";
                     $.ajax({
-                        url: url || '',
+                        url: uploadUrl,
                         type: "post",
                         data: formData,
                         contentType: false,
@@ -514,7 +524,7 @@
                 var formData = new FormData();
                 formData.append('imgfile', file);
                 $.ajax({
-                    url: '/uploadimg',
+                    url: window.APP_BASE_PATH + '/uploadimg',
                     type: "post",
                     data: formData,
                     contentType: false,
@@ -538,10 +548,10 @@
                 });
             },
             alertSound:function(){
-                alertSound("chatMessageAudio",'/static/images/alert2.ogg');
+                alertSound("chatMessageAudio",window.APP_BASE_PATH + '/static/images/alert2.ogg');
             },
             sendSound:function(){
-                alertSound("chatMessageSendAudio",'/static/images/sent.ogg');
+                alertSound("chatMessageSendAudio",window.APP_BASE_PATH + '/static/images/sent.ogg');
             },
             sendAjax:function(url,method,params,callback){
                 let _this=this;

@@ -18,17 +18,41 @@ func InitViewRouter(engine *gin.Engine) {
 
 // PageLogin Login page
 func PageLogin(c *gin.Context) {
-	c.HTML(http.StatusOK, "login.html", nil)
+	// 通过 HTTP Header 检测是否为代理模式
+	basePath := ""
+	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
+		basePath = "/goflychat"
+	}
+
+	c.HTML(http.StatusOK, "login.html", gin.H{
+		"BasePath": basePath,
+	})
 }
 
 // PagePannel Dashboard
 func PagePannel(c *gin.Context) {
-	c.HTML(http.StatusOK, "pannel.html", nil)
+	// 通过 HTTP Header 检测是否为代理模式
+	basePath := ""
+	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
+		basePath = "/goflychat"
+	}
+
+	c.HTML(http.StatusOK, "pannel.html", gin.H{
+		"BasePath": basePath,
+	})
 }
 
 // PageMain Admin console
 func PageMain(c *gin.Context) {
-	c.HTML(http.StatusOK, "main.html", nil)
+	// 通过 HTTP Header 检测是否为代理模式
+	basePath := ""
+	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
+		basePath = "/goflychat"
+	}
+
+	c.HTML(http.StatusOK, "main.html", gin.H{
+		"BasePath": basePath,
+	})
 }
 
 // PageChat Customer chat interface
@@ -42,17 +66,40 @@ func PageChat(c *gin.Context) {
 		referralSource = "Direct access" // More natural English
 	}
 
+	// 通过 HTTP Header 检测是否为代理模式
+	basePath := ""
+	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
+		basePath = "/goflychat"
+	}
+
 	c.HTML(http.StatusOK, "chat_page.html", gin.H{
-		"Refer": referralSource, // Keeping original template variable name
+		"Refer":     referralSource, // Keeping original template variable name
+		"BasePath":  basePath,
 	})
 }
 
 // PageChatMain Support agent console
 func PageChatMain(c *gin.Context) {
-	c.HTML(http.StatusOK, "chat_main.html", nil)
+	// 通过 HTTP Header 检测是否为代理模式
+	basePath := ""
+	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
+		basePath = "/goflychat"
+	}
+
+	c.HTML(http.StatusOK, "chat_main.html", gin.H{
+		"BasePath": basePath,
+	})
 }
 
 // PageSetting Settings
 func PageSetting(c *gin.Context) {
-	c.HTML(http.StatusOK, "setting.html", nil)
+	// 通过 HTTP Header 检测是否为代理模式
+	basePath := ""
+	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
+		basePath = "/goflychat"
+	}
+
+	c.HTML(http.StatusOK, "setting.html", gin.H{
+		"BasePath": basePath,
+	})
 }

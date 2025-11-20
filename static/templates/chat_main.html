@@ -4,14 +4,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>GOFLY - 开源客服系统</title>
-    <link rel="stylesheet" href="/static/cdn/element-ui/2.15.1/theme-chalk/index.min.css">
-    <script src="/static/cdn/vue/2.6.11/vue.min.js"></script>
-    <script src="/static/cdn/element-ui/2.15.1/index.js"></script>
-    <script src="/static/cdn/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="/static/css/common.css?v=dgftr65ujhfg">
-    <script src="/static/js/functions.js"></script>
-    <script src="/static/js/reconnecting-websocket.min.js"></script>
-    <link rel="stylesheet" href="/static/css/icon/iconfont.css?v=fgjlgfda"/>
+    <link rel="stylesheet" href="{{.BasePath}}/static/cdn/element-ui/2.15.1/theme-chalk/index.min.css">
+    <script src="{{.BasePath}}/static/cdn/vue/2.6.11/vue.min.js"></script>
+    <script src="{{.BasePath}}/static/cdn/element-ui/2.15.1/index.js"></script>
+    <script src="{{.BasePath}}/static/cdn/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{.BasePath}}/static/css/common.css?v=dgftr65ujhfg">
+    <script src="{{.BasePath}}/static/js/functions.js"></script>
+    <script src="{{.BasePath}}/static/js/reconnecting-websocket.min.js"></script>
+    <link rel="stylesheet" href="{{.BasePath}}/static/css/icon/iconfont.css?v=fgjlgfda"/>
     <style>
         html, body {overflow:hidden;height: 100%;padding: 0;margin: 0;background-color: #f5f5f5;}
         .el-row{width:100%}
@@ -253,15 +253,15 @@
 
         <!-- Image Preview -->
         <div id="bigPic" class="bigPic">
-            <img src="/static/images/3.jpg"/>
+            <img src="{{.BasePath}}/static/images/3.jpg"/>
         </div>
 
         <!-- Audio Elements -->
         <audio id="chatMessageAudio">
-            <source id="chatMessageAudioSource" src="/static/images/alert2.ogg" type="audio/mpeg" />
+            <source id="chatMessageAudioSource" src="{{.BasePath}}/static/images/alert2.ogg" type="audio/mpeg" />
         </audio>
         <audio id="chatMessageSendAudio">
-            <source id="chatMessageSendAudioSource" src="/static/images/sent.ogg" type="audio/mpeg" />
+            <source id="chatMessageSendAudioSource" src="{{.BasePath}}/static/images/sent.ogg" type="audio/mpeg" />
         </audio>
 
         <!-- Transfer Dialog -->
