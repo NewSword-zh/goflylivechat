@@ -3,12 +3,14 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"goflylivechat/common"
 	"goflylivechat/models"
 	"goflylivechat/tools"
 	"goflylivechat/ws"
 	"strconv"
+	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 //	func PostVisitor(c *gin.Context) {
@@ -58,12 +60,16 @@ import (
 //		})
 //	}
 func PostVisitorLogin(c *gin.Context) {
+	// 调试：检查所有相关的 Header
+	fmt.Printf("DEBUG: Headers - X-Proxy-Mode: '%s', X-Forwarded-For: '%s', Host: '%s', Referer: '%s'\n",
+		c.GetHeader("X-Proxy-Mode"),
+		c.GetHeader("X-Forwarded-For"),
+		c.GetHeader("Host"),
+		c.GetHeader("Referer"))
 
 	// 动态设置头像路径
-	basePath := ""
-	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
-		basePath = "/goflychat"
-	}
+	basePath := common.GetDynamicBasePath(c)
+	fmt.Printf("DEBUG: 动态获取的基础路径: '%s'\n", basePath)
 
 	avator := ""
 	userAgent := c.GetHeader("User-Agent")
@@ -121,10 +127,18 @@ func PostVisitorLogin(c *gin.Context) {
 	}
 	visitor := models.FindVisitorByVistorId(id)
 	if visitor.Name != "" {
-		avator = visitor.Avator
-		//更新状态上线
-		models.UpdateVisitor(name, visitor.Avator, id, 1, c.ClientIP(), c.ClientIP(), refer, extra)
+		// 检查数据库中的路径是否已经有前缀
+		if !strings.HasPrefix(visitor.Avator, basePath) {
+			// 如果没有前缀，使用动态生成的新路径
+			avator = basePath + "/static/images/2.png"
+		} else {
+			// 如果已经有前缀，保持数据库中的路径
+			avator = visitor.Avator
+		}
+		//更新状态上线，使用修正后的头像路径
+		models.UpdateVisitor(name, avator, id, 1, c.ClientIP(), c.ClientIP(), refer, extra)
 	} else {
+		// 新访客，直接使用动态生成的路径
 		models.CreateVisitor(name, avator, c.ClientIP(), toId, id, refer, city, client_ip, extra)
 	}
 	visitor.Name = name

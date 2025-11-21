@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"goflylivechat/common"
 	"goflylivechat/models"
 	"goflylivechat/tools"
 	"goflylivechat/ws"
@@ -163,10 +164,7 @@ func PostKefuRegister(c *gin.Context) {
 	nickname := c.PostForm("nickname")
 
 	// 动态设置头像路径
-	basePath := ""
-	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
-		basePath = "/goflychat"
-	}
+	basePath := common.GetDynamicBasePath(c)
 	avatar := basePath + "/static/images/4.jpg"
 
 	if name == "" || password == "" {

@@ -83,9 +83,13 @@ func IsPrefixEnabled() bool {
 // GetDynamicBasePath 根据请求动态获取基础路径
 func GetDynamicBasePath(c *gin.Context) string {
 	// 优先检测代理模式Header
-	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
-		fmt.Printf("DEBUG: 检测到代理模式 Header, 返回前缀: %s\n", GetPrefix())
-		return GetPrefix()
+	proxyMode := c.GetHeader("X-Proxy-Mode")
+	fmt.Printf("DEBUG: X-Proxy-Mode Header: '%s'\n", proxyMode)
+
+	if proxyMode == "goflychat" {
+		prefix := GetPrefix()
+		fmt.Printf("DEBUG: 检测到代理模式 Header, 返回前缀: %s\n", prefix)
+		return prefix
 	}
 
 	// 检测其他代理特征

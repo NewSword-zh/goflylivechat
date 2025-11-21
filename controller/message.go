@@ -55,14 +55,18 @@ func SendMessageV2(c *gin.Context) {
 	}
 
 	models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, content, cType)
+
+	// 动态获取基础路径
+	basePath := common.GetDynamicBasePath(c)
+
 	//var msg TypeMessage
 	if cType == "kefu" {
 		guest, ok := ws.ClientList[vistorInfo.VisitorId]
 
 		if guest != nil && ok {
-			ws.VisitorMessage(vistorInfo.VisitorId, content, kefuInfo)
+			ws.VisitorMessage(vistorInfo.VisitorId, content, kefuInfo, basePath)
 		}
-		ws.KefuMessage(vistorInfo.VisitorId, content, kefuInfo)
+		ws.KefuMessage(vistorInfo.VisitorId, content, kefuInfo, basePath)
 		//msg = TypeMessage{
 		//	Type: "message",
 		//	Data: ws.ClientMessage{
@@ -158,14 +162,18 @@ func SendKefuMessage(c *gin.Context) {
 	}
 
 	models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, content, cType)
+
+	// 动态获取基础路径
+	basePath := common.GetDynamicBasePath(c)
+
 	//var msg TypeMessage
 
 	guest, ok := ws.ClientList[vistorInfo.VisitorId]
 
 	if guest != nil && ok {
-		ws.VisitorMessage(vistorInfo.VisitorId, content, kefuInfo)
+		ws.VisitorMessage(vistorInfo.VisitorId, content, kefuInfo, basePath)
 	}
-	ws.KefuMessage(vistorInfo.VisitorId, content, kefuInfo)
+	ws.KefuMessage(vistorInfo.VisitorId, content, kefuInfo, basePath)
 	go models.UpdateVisitorLastMessage(vistorInfo.VisitorId, content)
 	c.JSON(200, gin.H{
 		"code": 200,

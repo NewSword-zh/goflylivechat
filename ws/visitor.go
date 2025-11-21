@@ -7,6 +7,7 @@ import (
 	"goflylivechat/common"
 	"goflylivechat/models"
 	"log"
+	"strings"
 	"time"
 )
 
@@ -140,12 +141,18 @@ func VisitorNotice(visitorId string, notice string) {
 	}
 	visitor.Conn.WriteMessage(websocket.TextMessage, str)
 }
-func VisitorMessage(visitorId, content string, kefuInfo models.User) {
+func VisitorMessage(visitorId, content string, kefuInfo models.User, basePath ...string) {
+	// 动态处理头像路径
+	avatar := kefuInfo.Avator
+	if len(basePath) > 0 && avatar != "" && !strings.HasPrefix(avatar, basePath[0]) {
+		avatar = basePath[0] + avatar
+	}
+
 	msg := TypeMessage{
 		Type: "message",
 		Data: ClientMessage{
 			Name:    kefuInfo.Nickname,
-			Avator:  kefuInfo.Avator,
+			Avator:  avatar,
 			Id:      kefuInfo.Name,
 			Time:    time.Now().Format("2006-01-02 15:04:05"),
 			ToId:    visitorId,

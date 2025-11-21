@@ -7,6 +7,7 @@ import (
 	"goflylivechat/models"
 	"goflylivechat/tools"
 	"log"
+	"strings"
 	"time"
 )
 
@@ -80,12 +81,18 @@ func OneKefuMessage(toId string, str []byte) {
 		tools.Logger().Println("send_kefu_message", error, string(str))
 	}
 }
-func KefuMessage(visitorId, content string, kefuInfo models.User) {
+func KefuMessage(visitorId, content string, kefuInfo models.User, basePath ...string) {
+	// 动态处理头像路径
+	avatar := kefuInfo.Avator
+	if len(basePath) > 0 && avatar != "" && !strings.HasPrefix(avatar, basePath[0]) {
+		avatar = basePath[0] + avatar
+	}
+
 	msg := TypeMessage{
 		Type: "message",
 		Data: ClientMessage{
 			Name:    kefuInfo.Nickname,
-			Avator:  kefuInfo.Avator,
+			Avator:  avatar,
 			Id:      visitorId,
 			Time:    time.Now().Format("2006-01-02 15:04:05"),
 			ToId:    visitorId,
