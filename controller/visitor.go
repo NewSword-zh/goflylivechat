@@ -59,12 +59,18 @@ import (
 //	}
 func PostVisitorLogin(c *gin.Context) {
 
+	// 动态设置头像路径
+	basePath := ""
+	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
+		basePath = "/goflychat"
+	}
+
 	avator := ""
 	userAgent := c.GetHeader("User-Agent")
 	if tools.IsMobile(userAgent) {
-		avator = "/static/images/1.png"
+		avator = basePath + "/static/images/1.png"
 	} else {
-		avator = "/static/images/2.png"
+		avator = basePath + "/static/images/2.png"
 	}
 
 	toId := c.PostForm("to_id")

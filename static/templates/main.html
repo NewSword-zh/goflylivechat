@@ -10,6 +10,10 @@
 
     <link rel="stylesheet" href="{{.BasePath}}/static/css/common.css">
     <script src="{{.BasePath}}/static/js/functions.js"></script>
+    <script>
+        // 初始化应用基础路径变量
+        window.APP_BASE_PATH = "{{.BasePath}}";
+    </script>
     <style>
         html,
         body {
@@ -55,24 +59,24 @@
                     <el-avatar class="mainLogo" title="客服系统" :size="45" :src="adminAvator"></el-avatar>
                 </el-badge>
             </div>
-            <div class="menuLeftItem active" v-on:click="openIframeUrl('/pannel')">
+            <div class="menuLeftItem active" v-on:click="openIframeUrl('{{.BasePath}}/pannel')">
                 <i class="el-icon-platform-eleme"></i>
                 <span slot="title">控制面板</span>
             </div>
 
-            <div class="menuLeftItem" v-on:click="haveNewMessage='';openIframeUrl('/chat_main')">
+            <div class="menuLeftItem" v-on:click="haveNewMessage='';openIframeUrl('{{.BasePath}}/chat_main')">
                 <el-badge :value="haveNewMessage" class="item">
                     <i class="el-icon-chat-dot-round"></i>
                 </el-badge>
                 <span slot="title">聊天</span>
             </div>
 
-            <div style="display: none" class="menuLeftItem" v-on:click="openIframeUrl('/setting_deploy')">
+            <div style="display: none" class="menuLeftItem" v-on:click="openIframeUrl('{{.BasePath}}/setting_deploy')">
                 <i class="el-icon-notebook-2"></i>
                 <span slot="title">集成</span>
             </div>
 
-            <div class="menuLeftItem" v-on:click="openIframeUrl('/setting')">
+            <div class="menuLeftItem" v-on:click="openIframeUrl('{{.BasePath}}/setting')">
                 <i class="el-icon-setting"></i>
                 <span slot="title">设置</span>
             </div>
@@ -99,7 +103,7 @@
             adminRole:"",
             onlineType:"success",
             haveNewMessage:"",
-            iframeUrl:"/pannel",
+            iframeUrl:"{{.BasePath}}/pannel",
         },
         methods: {
             focusWindow(){
@@ -115,7 +119,7 @@
                     }, function(notification) {
                         window.focus();
                         notification.close();
-                        _this.openIframeUrl("/chat_main");
+                        _this.openIframeUrl("{{.BasePath}}/chat_main");
                     });
                 });
             },
@@ -124,7 +128,7 @@
             },
             logout(){
                 localStorage.removeItem("token");
-                this.openIframeUrl('/login');
+                this.openIframeUrl('{{.BasePath}}/login');
             },
             openUrl(url){
                 window.location.href=url;
@@ -138,16 +142,16 @@
                 let _this=this;
                 $.ajax({
                     type:"GET",
-                    url:"/kefuinfo",
+                    url:"{{.BasePath}}/kefuinfo",
                     headers:{
                         "token":localStorage.getItem("token")
                     },
                     success: function(data) {
                         if (data.code != 200) {
-                            window.location.href="/login";
+                            window.location.href="{{.BasePath}}/login";
                         } else {
                             _this.adminAvator=data.result.avator;
-                            _this.iframeUrl = "/pannel";
+                            _this.iframeUrl = "{{.BasePath}}/pannel";
                         }
                     }
                 });

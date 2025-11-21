@@ -1,0 +1,6 @@
+{
+	"app": {
+		"prefix": "/goflychat",
+		"enable_prefix": true
+	}
+}

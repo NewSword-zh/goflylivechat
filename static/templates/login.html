@@ -49,6 +49,10 @@
     </style>
 </head>
 <body>
+<script>
+    // 使用后端传递的基础路径
+    window.APP_BASE_PATH = "{{.BasePath}}";
+</script>
 <div id="app" class="signin">
     <template>
         <div class="loginHtml">
@@ -156,14 +160,14 @@
                     "password": this.form.password,
                 };
 
-                $.post("/check", data, (response) => {
+                $.post(window.APP_BASE_PATH + "/check", data, (response) => {
                     if (response.code === 200) {
                         this.$message({
                             message: '欢迎回来！',
                             type: 'success'
                         });
                         localStorage.setItem("token", response.result.token);
-                        window.location.href = "/main";
+                        window.location.href = window.APP_BASE_PATH + "/main";
                     } else {
                         this.$message({
                             message: response.message || '用户名或密码错误',
@@ -193,7 +197,7 @@
                     "nickname": this.form.nickname,
                 };
 
-                $.post("/register", data, (response) => {
+                $.post(window.APP_BASE_PATH + "/register", data, (response) => {
                     if (response.code === 200) {
                         this.$message({
                             message: '账户创建成功！',

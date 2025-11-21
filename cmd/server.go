@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	"github.com/zh-five/xdaemon"
+	"goflylivechat/common"
 	"goflylivechat/middleware"
 	"goflylivechat/router"
 	"goflylivechat/tools"
@@ -56,7 +57,17 @@ func run() {
 	// Gin engine setup
 	engine := gin.Default()
 	engine.LoadHTMLGlob("static/templates/*")
+
+	// 设置双重静态资源路由支持
+	if common.IsPrefixEnabled() {
+		// 带前缀的静态资源（代理访问）
+		staticPrefix := common.GetPrefix() + "/static"
+		engine.Static(staticPrefix, "./static")
+	}
+
+	// 无前缀的静态资源（直接访问）
 	engine.Static("/static", "./static")
+
 	engine.Use(middleware.SessionHandler())
 	engine.Use(middleware.CrossSite)
 

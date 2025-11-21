@@ -7,16 +7,10 @@ function getBaseUrl() {
         url = 'http://' + url;
     }
 
-    // 智能检测当前路径是否在代理模式下
-    // 优先使用后端传递的变量，然后才检测路径
+    // 使用后端传递的基础路径变量
     var basePath = '';
     if (typeof window.APP_BASE_PATH !== 'undefined') {
         basePath = window.APP_BASE_PATH;
-    } else {
-        // 备用检测：检查域名或路径
-        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.includes('192.168.')) {
-            basePath = '/goflychat';
-        }
     }
 
     return url + basePath;
@@ -30,16 +24,10 @@ function getWsBaseUrl() {
         url = 'ws://' + url;
     }
 
-    // 智能检测当前路径是否在代理模式下
-    // 优先使用后端传递的变量，然后才检测路径
+    // 使用后端传递的基础路径变量
     var basePath = '';
     if (typeof window.APP_BASE_PATH !== 'undefined') {
         basePath = window.APP_BASE_PATH;
-    } else {
-        // 备用检测：检查域名或路径
-        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.includes('192.168.')) {
-            basePath = '/goflychat';
-        }
     }
 
     return url + basePath;
@@ -119,17 +107,13 @@ function clearFlashTitle() {
 var faceTitles = ["[微笑]", "[嘻嘻]", "[哈哈]", "[可爱]", "[可怜]", "[挖鼻]", "[吃惊]", "[害羞]", "[挤眼]", "[闭嘴]", "[鄙视]", "[爱你]", "[泪]", "[偷笑]", "[亲亲]", "[生病]", "[太开心]", "[白眼]", "[右哼哼]", "[左哼哼]", "[嘘]", "[衰]", "[委屈]", "[吐]", "[哈欠]", "[抱抱]", "[怒]", "[疑问]", "[馋嘴]", "[拜拜]", "[思考]", "[汗]", "[困]", "[睡]", "[钱]", "[失望]", "[酷]", "[色]", "[哼]", "[鼓掌]", "[晕]", "[悲伤]", "[抓狂]", "[黑线]", "[阴险]", "[怒骂]", "[互粉]", "[心]", "[伤心]", "[猪头]", "[熊猫]", "[兔子]", "[ok]", "[耶]", "[good]", "[NO]", "[赞]", "[来]", "[弱]", "[草泥马]", "[神马]", "[囧]", "[浮云]", "[给力]", "[围观]", "[威武]", "[奥特曼]", "[礼物]", "[钟]", "[话筒]", "[蜡烛]", "[蛋糕]"];
 function placeFace() {
     var faces=[];
-    // 优先使用后端传递的变量，然后才检测路径
+    // 使用后端传递的基础路径变量
     var basePath = '';
     if (typeof window.APP_BASE_PATH !== 'undefined') {
         basePath = window.APP_BASE_PATH + '/static/images/face/';
     } else {
-        // 备用检测：检查域名或路径
-        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.includes('192.168.')) {
-            basePath = '/goflychat/static/images/face/';
-        } else {
-            basePath = '/static/images/face/';
-        }
+        // 默认路径（向后兼容）
+        basePath = '/static/images/face/';
     }
     for(var i=0;i<faceTitles.length;i++){
         faces[faceTitles[i]]=basePath+i+".gif";
@@ -165,17 +149,13 @@ function replaceAttachment(str){
 
         var info=JSON.parse(mutiFiles[1])
         var imgSrc="";
-        // 优先使用后端传递的变量，然后才检测路径
+        // 使用后端传递的基础路径变量
         var extBasePath = '';
         if (typeof window.APP_BASE_PATH !== 'undefined') {
             extBasePath = window.APP_BASE_PATH + '/static/images/ext/';
         } else {
-            // 备用检测：检查域名或路径
-            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && !window.location.hostname.includes('192.168.')) {
-                extBasePath = '/goflychat/static/images/ext/';
-            } else {
-                extBasePath = '/static/images/ext/';
-            }
+            // 默认路径（向后兼容）
+            extBasePath = '/static/images/ext/';
         }
         switch(info.ext){
             case ".mp3":

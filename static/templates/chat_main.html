@@ -12,6 +12,10 @@
     <script src="{{.BasePath}}/static/js/functions.js"></script>
     <script src="{{.BasePath}}/static/js/reconnecting-websocket.min.js"></script>
     <link rel="stylesheet" href="{{.BasePath}}/static/css/icon/iconfont.css?v=fgjlgfda"/>
+    <script>
+        // 初始化应用基础路径变量
+        window.APP_BASE_PATH = "{{.BasePath}}";
+    </script>
     <style>
         html, body {overflow:hidden;height: 100%;padding: 0;margin: 0;background-color: #f5f5f5;}
         .el-row{width:100%}
@@ -421,7 +425,7 @@
                             confirmButtonText: '确定',
                             callback:function () {
                                 localStorage.removeItem("token");
-                                window.location.href="/login";
+                                window.location.href="{{.BasePath}}/login";
                             }
                         });
 
@@ -682,7 +686,7 @@
                             });
                         }
                         if(data.code==400){
-                            window.location.href="/login";
+                            window.location.href="{{.BasePath}}/login";
                         }
                     }
                 });
@@ -766,7 +770,7 @@
                             });
                         }
                         if(data.code==400){
-                            window.location.href="/login";
+                            window.location.href="{{.BasePath}}/login";
                         }
                     }
                 });

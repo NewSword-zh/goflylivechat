@@ -161,7 +161,13 @@ func PostKefuRegister(c *gin.Context) {
 	name := c.PostForm("username")
 	password := c.PostForm("password")
 	nickname := c.PostForm("nickname")
-	avatar := "/static/images/4.jpg"
+
+	// 动态设置头像路径
+	basePath := ""
+	if c.GetHeader("X-Proxy-Mode") == "goflychat" {
+		basePath = "/goflychat"
+	}
+	avatar := basePath + "/static/images/4.jpg"
 
 	if name == "" || password == "" {
 		c.JSON(http.StatusOK, gin.H{
